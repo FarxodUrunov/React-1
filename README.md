@@ -9,3 +9,7 @@
 
 ### main entry file (browser)
 main entry index.js
+
+### React
+
+1. props -> aka (HTML attributs)
