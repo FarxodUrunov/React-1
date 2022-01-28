@@ -5,11 +5,19 @@
 3. yarn start -> npm start (chunki start default command)
 4. yarn build -> npm run build
 
-
-
 ### main entry file (browser)
+
 main entry index.js
 
 ### React
 
 1. props -> aka (HTML attributs)
+
+### React.createElement()
+
+React.createElement(
+	type, -> DOM element
+	[props], -> HTML att. kup bulishi mumkin shuning uchun array
+	[...childrin] ->
+)
+
