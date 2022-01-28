@@ -16,8 +16,7 @@ main entry index.js
 ### React.createElement()
 
 React.createElement(
-	type, -> DOM element
-	[props], -> HTML att. kup bulishi mumkin shuning uchun array
-	[...childrin] ->
+type, -> DOM element
+[props], -> HTML att. kup bulishi mumkin shuning uchun array
+[...childrin] ->
 )
-
