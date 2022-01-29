@@ -50,13 +50,53 @@
 
 // Step1 createElement without (no) jsx
 
-import ReactDOM from "react-dom";
-import React from "react";
+// import ReactDOM from "react-dom";
+// import React from "react";
 
-const element = React.createElement("div", { id: "foo" },
-	React.createElement("a", null, "bar"),
-	React.createElement("br")
+// const element = React.createElement("div", { id: "foo" },
+// 	React.createElement("a", null, "bar"),
+// 	React.createElement("br")
+// );
+
+// const container = document.getElementById("root");
+// ReactDOM.render(element, container);
+
+// Step1.3  without(no) React
+
+function createElement(type, props1, ...children) {
+   // childrenda kuplab tag-lar kelishi mumkin ichma ich
+   return {
+      type,
+      props: {
+         ...props1, // atributlar xam kup bulishi mumkin
+         children: children.map((child) => (typeof child === "object" ? child : createElement(child))),
+      },
+   };
+}
+
+function createTextElement(text) {
+	return {
+		type: "TEXT_ELEMENT",
+		props: {
+			nodeValue: text,
+			children: [],
+		},
+	};
+}
+
+const Act = {
+	createElement
+};
+
+const element = Act.createElement(
+	"div",
+	{ id: "foo" },
+	Act.createElement("a", null, "bar"),
+	Act.createElement("b")
 );
 
-const container = document.getElementById("root");
-ReactDOM.render(element, container);
+console.log(element);
+
+// console.log(createElement("div"));
+// console.log(createElement("div", null, "a", "b"));
+console.log(createElement("div", {id: "foo"}, "a", "b", "br"));
