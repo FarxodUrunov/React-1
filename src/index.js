@@ -27,12 +27,12 @@ const element = {
 const container = document.getElementById("root");
 
 const node = document.createElement(element.type); // h1
-// node.title = element.props.title
-node["title"] = element.props.title; // foo
+node.title = element.props.title;
+// node["title"] = element.props.title; // foo
 const text = document.createTextNode(""); //
 // text.nodeValue = ""
 text["nodeValue"] = element.props.children; // hello
 node.append(text);
 container.append(node);
 
-ReactDOM.render(element, container);
+// ReactDOM.render(element, container);
