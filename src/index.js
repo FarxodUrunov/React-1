@@ -35,16 +35,28 @@
 // node.append(text);
 // container.append(node);
 
-
 // Step1 createElement with jsx
 
+// import ReactDOM from "react-dom";
+// // import React from "react";
+// const element = (
+// 	<div id="foo">
+// 		<a>bar</a>
+// 		<br/>
+// 	</div>
+// )
+// const container = document.getElementById("root");
+// ReactDOM.render(element, container);
+
+// Step1 createElement without (no) jsx
+
 import ReactDOM from "react-dom";
-// import React from "react";
-const element = (
-	<div id="foo">
-		<a>bar</a>
-		<br/>
-	</div>
-)
+import React from "react";
+
+const element = React.createElement("div", { id: "foo" },
+	React.createElement("a", null, "bar"),
+	React.createElement("br")
+);
+
 const container = document.getElementById("root");
 ReactDOM.render(element, container);
