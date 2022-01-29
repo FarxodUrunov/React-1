@@ -61,42 +61,114 @@
 // const container = document.getElementById("root");
 // ReactDOM.render(element, container);
 
-// Step1.3  without(no) React
+// // Step1.3  without(no) React
 
-function createElement(type, props1, ...children) {
-   // childrenda kuplab tag-lar kelishi mumkin ichma ich
-   return {
-      type,
-      props: {
-         ...props1, // atributlar xam kup bulishi mumkin
-         children: children.map((child) => (typeof child === "object" ? child : createElement(child))),
-      },
-   };
-}
+// function createElement(type, props1, ...children) {
+//    // childrenda kuplab tag-lar kelishi mumkin ichma ich
+//    return {
+//       type,
+//       props: {
+//          ...props1, // atributlar xam kup bulishi mumkin
+//          children: children.map((child) => (typeof child === "object" ? child : createElement(child))),
+//       },
+//    };
+// }
 
-function createTextElement(text) {
-	return {
-		type: "TEXT_ELEMENT",
-		props: {
-			nodeValue: text,
-			children: [],
-		},
-	};
-}
+// function createTextElement(text) {
+// 	return {
+// 		type: "TEXT_ELEMENT",
+// 		props: {
+// 			nodeValue: text,
+// 			children: [],
+// 		},
+// 	};
+// }
 
-const Act = {
-	createElement
-};
+// const Act = {
+// 	createElement
+// };
 
-const element = Act.createElement(
-	"div",
-	{ id: "foo" },
-	Act.createElement("a", null, "bar"),
-	Act.createElement("b")
-);
+// const element = Act.createElement(
+// 	"div",
+// 	{ id: "foo" },
+// 	Act.createElement("a", null, "bar"),
+// 	Act.createElement("b")
+// );
 
-console.log(element);
+// console.log(element);
 
 // console.log(createElement("div"));
 // console.log(createElement("div", null, "a", "b"));
-console.log(createElement("div", {id: "foo"}, "a", "b", "br"));
+// console.log(createElement("div", {id: "foo"}, "a", "b", "br"));
+
+
+
+// Step1.4 bably uzgartirish
+
+/** @jsxRuntime classic */
+function createElement(type, props, ...children) {
+	return {
+		 type,
+		 props: {
+			  ...props,
+			  // title: "title",
+			  // id: "id",
+			  // className: "name",
+			  children: children.map(child =>
+					typeof child === "object" ? child : createTextElement(child)
+			  )
+		 }
+	};
+}
+
+
+// <h1 title="title" id="id" className="name">children</h1>
+
+function createTextElement(text) {
+	return {
+		 type: "TEXT_ELEMENT",
+		 props: {
+			  nodeValue: text, // hello
+			  children: []
+		 }
+	};
+}
+
+function render(element, container) {
+	const dom =
+		 element.type == "TEXT_ELEMENT"
+			  ? document.createTextNode("")
+			  : document.createElement(element.type); // h1
+
+	const isProperty = key => key !== "children";
+
+	Object.keys(element.props)
+		 .filter(isProperty)
+		 .forEach(name => {
+			  dom[name] = element.props[name];
+		 });
+
+	element.props.children.forEach(child => render(child, dom));
+	container.appendChild(dom);
+}
+
+const Act = {
+	createElement,
+	render
+};
+
+/** @jsx Act.createElement */
+const element = (
+	<div style="background: salmon">
+		 <h1>Hello World</h1>
+		 <h2 style="text-align:right">from Act</h2>
+		 <h3>hello world</h3>
+		 <ul>
+			  <li><a><span style="color: red">code</span></a></li>
+		 </ul>
+	</div>
+);
+const container = document.getElementById("root");
+Act.render(element, container);
+
+
